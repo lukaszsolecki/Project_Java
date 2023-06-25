@@ -7,6 +7,7 @@ public class Main {
         FishManager fishManager = new FishManager(database);
 
         System.out.println("=== Aquarium Fish Database ===");
+        System.out.println("Lukasz Solecki===1 rok Informatyka===Lab 04");
         System.out.println();
 
         while (true) {
@@ -41,7 +42,8 @@ public class Main {
                     searchFishBySpecies.searchFish();
                     break;
                 case 5:
-
+                    FindFishForTank findFishForTank = new FindFishForTank(fishManager, scanner);
+                    findFishForTank.findFish();
                     break;
                 case 6:
                     database.closeConnection();

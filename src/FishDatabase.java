@@ -125,4 +125,31 @@ public class FishDatabase {
 
         return fishList;
     }
+    public List<Fish> getFishForTank(int tankSize, int pHValue) {
+        List<Fish> fishList = new ArrayList<>();
+        String query = "SELECT * FROM Fish WHERE TANK_SIZE <= ? AND MIN_PH <= ? AND MAX_PH >= ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, tankSize);
+            statement.setInt(2, pHValue);
+            statement.setInt(3, pHValue);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String species = resultSet.getString("SPECIES");
+                String name = resultSet.getString("NAME");
+                int fishTankSize = resultSet.getInt("TANK_SIZE");
+                int minPH = resultSet.getInt("MIN_PH");
+                int maxPH = resultSet.getInt("MAX_PH");
+
+                Fish fish = new Fish(id, species, name, fishTankSize, minPH, maxPH);
+                fishList.add(fish);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error searching fish for tank: " + e.getMessage());
+        }
+
+        return fishList;
+    }
 }
