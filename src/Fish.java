@@ -30,6 +30,7 @@ public class Fish {
     public int getTankSize() {
         return tankSize;
     }
+
     public int getMinPh() {
         return minPh;
     }

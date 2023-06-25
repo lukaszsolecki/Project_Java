@@ -15,6 +15,7 @@ public class FishDatabase {
             System.err.println("Error: " + e.getMessage());
         }
     }
+
     private void dropTable() {
         String query = "DROP TABLE IF EXISTS Fish";
 
@@ -24,6 +25,7 @@ public class FishDatabase {
             System.err.println("Error drop table: " + e.getMessage());
         }
     }
+
     private void createTable() {
         String query = "CREATE TABLE IF NOT EXISTS Fish (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -40,6 +42,7 @@ public class FishDatabase {
             System.err.println("Error creating table: " + e.getMessage());
         }
     }
+
     public void closeConnection() {
         try {
             if (connection != null) {
@@ -50,6 +53,7 @@ public class FishDatabase {
             System.err.println("Error closing connection: " + e.getMessage());
         }
     }
+
     public void addFish(Fish fish) {
         String query = "INSERT INTO Fish (SPECIES, NAME, TANK_SIZE, MIN_PH, MAX_PH) VALUES (?, ?, ?, ?, ?)";
 
@@ -65,6 +69,7 @@ public class FishDatabase {
             System.err.println("Error adding fish: " + e.getMessage());
         }
     }
+
     public boolean deleteFish(int id) {
         String query = "DELETE FROM Fish WHERE ID = ?";
 
@@ -78,6 +83,7 @@ public class FishDatabase {
             return false;
         }
     }
+
     public List<Fish> getFishBySpecies(String species) {
         List<Fish> fishList = new ArrayList<>();
         String query = "SELECT * FROM Fish WHERE SPECIES = ?";
@@ -102,6 +108,7 @@ public class FishDatabase {
 
         return fishList;
     }
+
     public List<Fish> getAllFish() {
         List<Fish> fishList = new ArrayList<>();
         String query = "SELECT * FROM Fish";
@@ -125,6 +132,7 @@ public class FishDatabase {
 
         return fishList;
     }
+
     public List<Fish> getFishForTank(int tankSize, int pHValue) {
         List<Fish> fishList = new ArrayList<>();
         String query = "SELECT * FROM Fish WHERE TANK_SIZE <= ? AND MIN_PH <= ? AND MAX_PH >= ?";

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 class DeleteFish {
     private FishManager fishManager;
     private Scanner scanner;
