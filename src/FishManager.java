@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class FishManager {
     private FishDatabase database;
 
@@ -15,6 +17,28 @@ public class FishManager {
             System.out.println("Fish deleted successfully.");
         } else {
             System.out.println("Fish not found with ID: " + id);
+        }
+    }
+    public void searchFishBySpecies(String species) {
+        List<Fish> fishList = database.getFishBySpecies(species);
+        if (fishList.isEmpty()) {
+            System.out.println("No fish found for species: " + species);
+        } else {
+            System.out.println("Fish found for species: " + species);
+            for (Fish fish : fishList) {
+                System.out.println("ID: " + fish.getId() + ", Species: " + fish.getSpecies() + ", Name: " + fish.getName() + ", Tank Size: " + fish.getTankSize() + ", Minimum Ph: " + fish.getMinPh()+ ", Maximum Ph: " + fish.getMaxPh());
+            }
+        }
+    }
+    public void listAllFish() {
+        List<Fish> fishList = database.getAllFish();
+        if (fishList.isEmpty()) {
+            System.out.println("No fish found in the database.");
+        } else {
+            System.out.println("All Fish in the Database:");
+            for (Fish fish : fishList) {
+                System.out.println("ID: " + fish.getId() + ", Species: " + fish.getSpecies() + ", Name: " + fish.getName() + ", Tank Size: " + fish.getTankSize() + ", Minimum Ph: " + fish.getMinPh()+ ", Maximum Ph: " + fish.getMaxPh());
+            }
         }
     }
 }

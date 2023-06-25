@@ -33,16 +33,19 @@ public class Main {
                     deleteFish.deleteFish();
                     break;
                 case 3:
-
+                    ListAllFishSpecies listAllFishSpecies = new ListAllFishSpecies(fishManager);
+                    listAllFishSpecies.listAllSpecies();
                     break;
                 case 4:
-
+                    SearchFishBySpecies searchFishBySpecies = new SearchFishBySpecies(fishManager, scanner);
+                    searchFishBySpecies.searchFish();
                     break;
                 case 5:
 
                     break;
                 case 6:
-
+                    database.closeConnection();
+                    System.out.println("Goodbye!");
                     return;
                 default:
                     System.out.println("Wrong choice. Please try again.");

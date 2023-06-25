@@ -1,4 +1,7 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class FishDatabase {
     private Connection connection;
 
@@ -74,5 +77,52 @@ public class FishDatabase {
             System.err.println("Error deleting fish: " + e.getMessage());
             return false;
         }
+    }
+    public List<Fish> getFishBySpecies(String species) {
+        List<Fish> fishList = new ArrayList<>();
+        String query = "SELECT * FROM Fish WHERE SPECIES = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, species);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String name = resultSet.getString("NAME");
+                int tankSize = resultSet.getInt("TANK_SIZE");
+                int minpH = resultSet.getInt("MIN_PH");
+                int maxpH = resultSet.getInt("MAX_PH");
+
+                Fish fish = new Fish(id, species, name, tankSize, minpH, maxpH);
+                fishList.add(fish);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error searching fish: " + e.getMessage());
+        }
+
+        return fishList;
+    }
+    public List<Fish> getAllFish() {
+        List<Fish> fishList = new ArrayList<>();
+        String query = "SELECT * FROM Fish";
+
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String species = resultSet.getString("SPECIES");
+                String name = resultSet.getString("NAME");
+                int tankSize = resultSet.getInt("TANK_SIZE");
+                int minpH = resultSet.getInt("MIN_PH");
+                int maxpH = resultSet.getInt("MAX_PH");
+
+                Fish fish = new Fish(id, species, name, tankSize, minpH, maxpH);
+                fishList.add(fish);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving fish data: " + e.getMessage());
+        }
+
+        return fishList;
     }
 }
